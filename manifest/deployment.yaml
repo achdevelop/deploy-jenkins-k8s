@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: example-deploy
-  #namespace: dev
+  namespace: dev
   labels:
     app: example-app
     test: test
