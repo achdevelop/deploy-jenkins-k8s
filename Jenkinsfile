@@ -21,7 +21,7 @@ pipeline {
         stage('git clone') {
             steps{
                 sh(script: """
-                    git clone https://github.com:achgeek/deploy-jenkins-k8s.git
+                    git clone https://github.com/achgeek/deploy-jenkins-k8s.git
                 """, returnStdout: true) 
             }
         }
@@ -30,7 +30,8 @@ pipeline {
             steps{
                 sh script: '''
                 #!/bin/bash
-                cd $WORKSPACE/python
+                cd $WORKSPACE/deploy-jenkins-k8s/python/
+                ls -la
                 docker build . --network host -t achdevops/jenkins-python:${BUILD_NUMBER}
                 '''
             }
@@ -48,7 +49,7 @@ pipeline {
             steps{
                 sh script: '''
                 #!/bin/bash
-                cd $WORKSPACE/
+                cd $WORKSPACE/deploy-jenkins-k8s/
                 #get kubectl for this demo
                 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
                 chmod +x ./kubectl
